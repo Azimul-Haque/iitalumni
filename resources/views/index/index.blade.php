@@ -69,7 +69,7 @@
             </div>
         </div>
     </section>
-    <section class="wow fadeIn">
+    <section class="wow fadeIn bg-gray">
         <div class="container">
             <div class="row">
                 <!-- call to action -->
@@ -81,77 +81,52 @@
             </div>
         </div>
     </section>
-    <!-- content section -->
+    <!-- blog content section -->
     <section class="wow fadeIn blog-full-width-section">
         <div class="container-fuild">
+             <div class="row">
+                <!-- call to action -->
+                <div class="col-md-7 col-sm-12 text-center center-col">
+                    <p class="title-large text-uppercase letter-spacing-1 black-text font-weight-600 wow fadeIn">Lates Blogs</p>
+                </div>
+                <!-- end call to action -->
+            </div>
             <div class="row blog-full-width no-margin xs-no-padding">
                 <!-- post item -->
+                @foreach($blogs as $blog)
                 <div class="col-md-3 col-sm-6 col-xs-6 blog-listing wow fadeInUp" data-wow-duration="300ms">
-                    <div class="blog-image"><a href="blog-single-right-sidebar.html"><img src="{{ asset('vendor/hcode/images/blog-post16.jpg') }}" alt=""/></a></div>
+                    <div class="blog-image">
+                        <a href="{{ route('blog.single', $blog->slug) }}">
+                            @if($blog->featured_image != null)
+                            <img src="{{ asset('images/blogs/'.$blog->featured_image) }}" alt=""/>
+                            @else
+                            <img src="{{ asset('images/600x315.png') }}" alt=""/>
+                            @endif
+                        </a>
+                    </div>
                     <div class="blog-details">
-                        <div class="blog-date"><a href="blog-masonry-2columns.html">Paul Scrivens</a> | 02 January 2015</div>
-                        <div class="blog-title"><a href="blog-single-right-sidebar.html">How To Streamline Creative Dialogue</a></div>
-                        <div class="blog-short-description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</div>
+                        <div class="blog-date"><a href="{{ route('blog.single', $blog->slug) }}">{{ $blog->user->name }}</a> | {{ date('F d, Y', strtotime($blog->created_at)) }}</div>
+                        <div class="blog-title"><a href="{{ route('blog.single', $blog->slug) }}">{{ $blog->title }}</a></div>
+                        <div class="blog-short-description" style="text-align: justify; text-justify: inter-word; width: 100%">
+                            @if(strlen(strip_tags($blog->body))>300)
+                            {{ mb_substr(strip_tags($blog->body), 0, stripos($blog->body, " ", stripos(strip_tags($blog->body), " ")+200))." [...] " }}
+                            @else
+                                {{ strip_tags($blog->body) }}
+                            @endif
+                        </div>
                         <div class="separator-line bg-black no-margin-lr"></div>
-                        <div><a href="#" class="blog-like"><i class="fa fa-heart-o"></i>Likes</a><a href="#" class="blog-share"><i class="fa fa-share-alt"></i>Share</a><a href="#" class="comment"><i class="fa fa-comment-o"></i>3 comment(s)</a></div>
+                        <div>
+                            <a href="#!" class="blog-like"><i class="fa fa-heart-o"></i>{{ $blog->likes }} Like(s)</a>
+                            <a href="#!" class="comment"><i class="fa fa-comment-o"></i>3 comment(s)</a>
+                        </div>
                     </div>
                 </div>
+                @endforeach
                 <!-- end post item -->
-                <!-- post item -->
-                <div class="col-md-3 col-sm-6 col-xs-6 blog-listing wow fadeInUp" data-wow-duration="600ms">
-                    <div class="blog-image"><a href="blog-single-right-sidebar.html"><img src="{{ asset('vendor/hcode/images/blog-post19.jpg') }}" alt=""/></a></div>
-                    <div class="blog-details">
-                        <div class="blog-date"><a href="blog-masonry-2columns.html">Paul Scrivens</a> | 02 January 2015</div>
-                        <div class="blog-title"><a href="blog-single-right-sidebar.html">How To Transform Your Problem-Solving</a></div>
-                        <div class="blog-short-description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</div>
-                        <div class="separator-line bg-black no-margin-lr"></div>
-                        <div><a href="#" class="blog-like"><i class="fa fa-heart-o"></i>Likes</a><a href="#" class="blog-share"><i class="fa fa-share-alt"></i>Share</a><a href="#" class="comment"><i class="fa fa-comment-o"></i>3 comment(s)</a></div>
-                    </div>
-                </div>
-                <!-- end post item -->
-                <!-- post item -->
-                <div class="col-md-3 col-sm-6 col-xs-6 blog-listing wow fadeInUp" data-wow-duration="900ms">
-                    <div class="blog-image"><a href="blog-single-right-sidebar.html"><img src="{{ asset('vendor/hcode/images/blog-post18.jpg') }}" alt=""/></a></div>
-                    <div class="blog-details">
-                        <div class="blog-date"><a href="blog-masonry-2columns.html">Nathan Ford</a> | 02 January 2015</div>
-                        <div class="blog-title"><a href="blog-single-right-sidebar.html">A Frank Lloyd Wright Approach To Digital</a></div>
-                        <div class="blog-short-description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</div>
-                        <div class="separator-line bg-black no-margin-lr"></div>
-                        <div><a href="#" class="blog-like"><i class="fa fa-heart-o"></i>Likes</a><a href="#" class="blog-share"><i class="fa fa-share-alt"></i>Share</a><a href="#" class="comment"><i class="fa fa-comment-o"></i>3 comment(s)</a></div>
-                    </div>
-                </div>
-                <!-- end post item -->
-                <!-- post item -->
-                <div class="col-md-3 col-sm-6 col-xs-6 blog-listing wow fadeInUp" data-wow-duration="1200ms">
-                    <div class="blog-image"><a href="blog-single-right-sidebar.html"><img src="{{ asset('vendor/hcode/images/blog-post17.jpg') }}" alt=""/></a></div>
-                    <div class="blog-details">
-                        <div class="blog-date"><a href="blog-masonry-2columns.html">Aarron Walter</a> | 02 January 2015</div>
-                        <div class="blog-title"><a href="blog-single-right-sidebar.html">Design Principles: Visual Weight And Direction</a></div>
-                        <div class="blog-short-description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</div>
-                        <div class="separator-line bg-black no-margin-lr"></div>
-                        <div><a href="#" class="blog-like"><i class="fa fa-heart-o"></i>Likes</a><a href="#" class="blog-share"><i class="fa fa-share-alt"></i>Share</a><a href="#" class="comment"><i class="fa fa-comment-o"></i>3 comment(s)</a></div>
-                    </div>
-                </div>
-                <!-- end post item -->
-            </div>
-            <div class="row no-margin">
-                <div class="col-md-12 col-sm-12 col-xs-12 wow fadeInUp">
-                    <!-- pagination -->
-                    <div class="pagination">
-                        <a href="#"><img src="{{ asset('vendor/hcode/images/arrow-pre-small.png') }}" alt=""/></a>
-                        <a href="#">1</a>
-                        <a href="#">2</a>
-                        <a href="#" class="active">3</a>
-                        <a href="#">4</a>
-                        <a href="#">5</a>
-                        <a href="#"><img src="{{ asset('vendor/hcode/images/arrow-next-small.png') }}" alt=""/></a>
-                    </div>
-                    <!-- end pagination -->
-                </div>
             </div>
         </div>
     </section>
-    <!-- end content section -->
+    <!-- end blog content section -->
 @endsection
 
 @section('js')

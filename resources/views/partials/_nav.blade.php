@@ -50,12 +50,12 @@
                         </li>
                         <!-- menu item -->
                         <li class="dropdown panel simple-dropdown">
-                            <a href="#collapse7" class="dropdown-toggle collapsed" data-toggle="collapse" data-parent="#accordion" data-hover="dropdown">About
+                            <a href="#about_dropdown" class="dropdown-toggle collapsed" data-toggle="collapse" data-parent="#accordion" data-hover="dropdown">About
                                 <i class="fa fa-angle-down"></i>
                             </a>
                             <!-- sub menu single -->
                             <!-- sub menu item  -->
-                            <ul id="collapse7" class="dropdown-menu panel-collapse collapse" role="menu">
+                            <ul id="about_dropdown" class="dropdown-menu panel-collapse collapse" role="menu">
                                 <li>
                                     <a href="{{ route('index.journey') }}">Journey of DUIITAA</a>
                                 </li>
@@ -70,12 +70,12 @@
                             <!-- end sub menu single -->
                         </li>
                         <li class="dropdown panel simple-dropdown">
-                            <a href="#collapse7" class="dropdown-toggle collapsed" data-toggle="collapse" data-parent="#accordion" data-hover="dropdown">Committee
+                            <a href="#committee_dropdown" class="dropdown-toggle collapsed" data-toggle="collapse" data-parent="#accordion" data-hover="dropdown">Committee
                                 <i class="fa fa-angle-down"></i>
                             </a>
                             <!-- sub menu single -->
                             <!-- sub menu item  -->
-                            <ul id="collapse7" class="dropdown-menu panel-collapse collapse" role="menu">
+                            <ul id="committee_dropdown" class="dropdown-menu panel-collapse collapse" role="menu">
 
                                 <li>
                                     <a href="{{ route('index.adhoc') }}">Ad Hoc Committee</a>
@@ -85,12 +85,15 @@
                             <!-- end sub menu single -->
                         </li>
                         <li class="dropdown panel simple-dropdown">
-                            <a href="#collapse7" class="dropdown-toggle collapsed" data-toggle="collapse" data-parent="#accordion" data-hover="dropdown">Others
+                            <a href="#others_dropdown" class="dropdown-toggle collapsed" data-toggle="collapse" data-parent="#accordion" data-hover="dropdown">Others
                                 <i class="fa fa-angle-down"></i>
                             </a>
                             <!-- sub menu single -->
                             <!-- sub menu item  -->
-                            <ul id="collapse7" class="dropdown-menu panel-collapse collapse" role="menu">
+                            <ul id="others_dropdown" class="dropdown-menu panel-collapse collapse" role="menu">
+                                <li>
+                                    <a href="{{ route('blogs.index') }}">Blogs</a>
+                                </li>
                                 <li>
                                     <a href="{{ route('index.news') }}">News</a>
                                 </li>
@@ -127,7 +130,7 @@
                             <!-- sub menu item  -->
                             <ul id="nav_auth_user" class="dropdown-menu panel-collapse collapse" role="menu">
                                 <li>
-                                    <a href="{{ route('index.profile', Auth::user()->id) }}">Profile</a>
+                                    <a href="{{ route('index.profile', Auth::user()->unique_key) }}">Profile</a>
                                 </li>
                                 <li>
                                     <a href="{{ url(config('adminlte.logout_url', 'auth/logout')) }}">Logout</a>

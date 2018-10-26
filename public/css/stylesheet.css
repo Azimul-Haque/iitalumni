@@ -79,23 +79,7 @@ ul.errorlist > li {
 .well {
 	background-color: #ffffff;
 }
-.panel, .well, .table-responsive{
-    -webkit-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.5) !important;
-    -moz-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.5) !important;
-    box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.5) !important;
-    border-radius: 0px !important;
-    border: 0px solid transparent !important;
-}
 
-.panel-heading {
-	font-weight: bold;
-}
-
-.panel-default>.panel-heading{
-  color: #000;
-  background-color: #9e9e9e;
-  border-color: #9e9e9e;
-}
 .btn-primary, .panel-primary>.panel-heading {
     color: #ffffff;
     background-color: #3949ab;
@@ -318,6 +302,23 @@ ul.errorlist > li {
     border-radius: 0px !important;
 }
 
+.table-shadow {
+    -webkit-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.5) !important;
+    -moz-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.5) !important;
+    box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.5) !important;
+    border-radius: 0px !important;
+}
+.img-shadow {
+    -webkit-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.5) !important;
+    -moz-box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.5) !important;
+    box-shadow: 1px 1px 2px 0px rgba(0,0,0,0.5) !important;
+    border-radius: 0px !important;
+}
+
+section {
+    padding: 50px 0 !important;
+}
+
 
 
 
@@ -332,33 +333,38 @@ ul.errorlist > li {
 
 
 /* print css */
+
 @media print {
     header, .footer, footer {
         display: none;
     }
 
     /* hide main content when dialog open */
-    body.modal-open div.container.body-content div#mainContent {
+    /*body.modal-open div.container.body-content div#mainContent {
         display: none;
-    }
+    }*/
 
     .noPrint {
         display: none;
     }
-
+    
     .onlyPrint {
         display: block;
+    }
+
+    a[href]:after {
+        content: none !important;
     }
 }
 
 @media screen {
-  #printSection {
+  /*#printSection {
       display: none;
-  }
+  }*/
 }
 
 @media print {
-  body * {
+  /* body * {
     visibility:hidden;
   }
   #printSection, #printSection * {
@@ -369,7 +375,7 @@ ul.errorlist > li {
     left:0;
     top:0;
     padding: 0;
-  }
+  } */
 }
 /* print css */
 
