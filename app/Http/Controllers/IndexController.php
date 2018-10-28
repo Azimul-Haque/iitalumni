@@ -8,6 +8,8 @@ use App\Http\Requests;
 use App\User;
 use App\Blog;
 use App\Category;
+use App\Adhocmember;
+
 use Carbon\Carbon;
 use DB;
 use Hash;
@@ -15,6 +17,7 @@ use Auth;
 use Image;
 use File;
 use Session;
+use Artisan;
 
 class IndexController extends Controller
 {
@@ -32,22 +35,23 @@ class IndexController extends Controller
 
     public function getJourney()
     {
-        //
+        return view('index.journey');
     }
 
     public function getConstitution()
     {
-        //
+        return view('index.constitution');
     }
 
     public function getFaq()
     {
-        //
+        return view('index.faq');
     }
 
     public function getAdhoc()
     {
-        //
+        $adhocmembers = Adhocmember::orderBy('id', 'asc')->get();
+        return view('index.adhoc')->withAdhocmembers($adhocmembers);
     }
 
     public function getNews()
@@ -171,5 +175,16 @@ class IndexController extends Controller
         Session::flash('success', 'You have registered Successfully!');
         Auth::login($application);
         return redirect()->route('index.profile', $unique_key);
+    }
+
+
+    // clear configs, routes and serve
+    public function clear()
+    {
+        Artisan::call('config:cache');
+        Artisan::call('route:cache');
+        Artisan::call('cache:clear');
+        Artisan::call('view:clear');
+        echo 'Config and Route Cached. All Cache Cleared';
     }
 }

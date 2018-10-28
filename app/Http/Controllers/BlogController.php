@@ -14,21 +14,29 @@ use Carbon\Carbon;
 use DB, Hash, Auth, Image, File, Session;
 use Purifier;
 
-class BlogController extends Controller
-{
+class BlogController extends Controller {
     
     public function __construct()
     {
-        $this->middleware('auth')->except('index', 'getBloggerProfile', 'getBlogPost', 'checkLikeAPI');
+        $this->middleware('auth')->except('index', 'getBloggerProfile', 'getBlogPost', 'checkLikeAPI', 'getCategoryWise', 'getMonthWise');
     }
 
     public function index()
     {
         $categories = Category::all();
+        $populars = Blog::orderBy('likes', 'desc')->get()->take(4);
+        $archives = DB::table('blogs')
+                        ->select("created_at", DB::raw('count(*) as total'))
+                        ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m')"))
+                        ->orderBy('created_at', 'DESC')
+                        ->get();
+                        //dd($archives);
         $blogs = Blog::orderBy('id', 'desc')->paginate(7);
         return view('blogs.index')
                   ->withBlogs($blogs)
-                  ->withCategories($categories);
+                  ->withCategories($categories)
+                  ->withPopulars($populars)
+                  ->withArchives($archives);
     }
 
     /**
@@ -58,7 +66,7 @@ class BlogController extends Controller
         ));
 
         //store to DB
-        $blog              = new Blog;
+        $blog              = new Blog();
         $blog->title       = $request->title;
         $blog->user_id     = Auth::user()->id;
         $blog->slug        = str_replace(['?',':', '\\', '/', '*', ' '], '_',$request->title).time();
@@ -92,8 +100,20 @@ class BlogController extends Controller
 
     public function getBlogPost($slug)
     {
+        $categories = Category::all();
         $blog = Blog::where('slug', $slug)->first();
-        return view('blogs.single')->withBlog($blog);
+        $populars = Blog::orderBy('likes', 'desc')->get()->take(4);
+        $archives = DB::table('blogs')
+                        ->select("created_at", DB::raw('count(*) as total'))
+                        ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m')"))
+                        ->orderBy('created_at', 'DESC')
+                        ->get();
+                        //dd($archives);
+        return view('blogs.single')
+                ->withBlog($blog)
+                ->withCategories($categories)
+                ->withPopulars($populars)
+                ->withArchives($archives);
     }
 
     /**
@@ -181,5 +201,45 @@ class BlogController extends Controller
             ];
             return response()->json($data);
         }
+    }
+
+    public function getCategoryWise($name) {
+        $categories = Category::all();
+        $populars = Blog::orderBy('likes', 'desc')->get()->take(4);
+        $archives = DB::table('blogs')
+                        ->select("created_at", DB::raw('count(*) as total'))
+                        ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m')"))
+                        ->orderBy('created_at', 'DESC')
+                        ->get();
+        $category = Category::where('name', $name)->first();
+        $blogs = Blog::where('category_id', $category->id)->orderBy('id', 'desc')->paginate(7);
+        return view('blogs.categorywise')
+                  ->withName($name)
+                  ->withBlogs($blogs)
+                  ->withCategories($categories)
+                  ->withPopulars($populars)
+                  ->withArchives($archives);
+    }
+
+    public function getMonthWise($date) {
+        $categories = Category::all();
+        $populars = Blog::orderBy('likes', 'desc')->get()->take(4);
+        $archives = DB::table('blogs')
+                        ->select("created_at", DB::raw('count(*) as total'))
+                        ->groupBy(DB::raw("DATE_FORMAT(created_at, '%Y-%m')"))
+                        ->orderBy('created_at', 'DESC')
+                        ->get();
+                        //dd($archives);
+        $blogs = Blog::whereYear('created_at', '=', date('Y', strtotime($date)))
+                     ->whereMonth('created_at', '=', date('m', strtotime($date)))
+                     ->orderBy('id', 'desc')
+                     ->paginate(7);
+        $archivedate = date('F Y', strtotime($date));
+        return view('blogs.archive')
+                  ->withBlogs($blogs)
+                  ->withArchivedate($archivedate)
+                  ->withCategories($categories)
+                  ->withPopulars($populars)
+                  ->withArchives($archives);
     }
 }

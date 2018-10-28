@@ -76,7 +76,9 @@
               </div>
               @endif
               <div class="blog-details">
-                  <div class="blog-date">{{ date('F d, Y', strtotime($blog->created_at)) }}</div>
+                  <div class="blog-date">{{ date('F d, Y', strtotime($blog->created_at)) }} | 
+                    <a href="{{ route('blog.categorywise', $blog->category->name) }}">{{ $blog->category->name }}</a>
+                  </div>
                   <div class="blog-title"><a href="{{ route('blog.single', $blog->slug) }}">
                     {{ $blog->title }}
                   </a></div>
@@ -93,7 +95,27 @@
                   <div class="separator-line bg-black no-margin-lr"></div>
                   <div>
                     <a href="#!" class="blog-like"><i class="fa fa-heart-o"></i>{{ $blog->likes }} Like(s)</a>
-                    <a href="#!" class="comment"><i class="fa fa-comment-o"></i>3 comment(s)</a></div>
+                    <a href="#!" class="comment"><i class="fa fa-comment-o"></i>
+                                <span id="comment_count{{ $blog->id }}"></span>
+                                 comment(s)</a>
+                  </div>
+                    <script type="text/javascript" src="{{ asset('vendor/hcode/js/jquery.min.js') }}"></script>
+                    <script type="text/javascript">
+                        $.ajax({
+                            url: "https://graph.facebook.com/v2.2/?fields=share{comment_count}&id={{ url('/blog/'.$blog->slug) }}",
+                            dataType: "jsonp",
+                            success: function(data) {
+                                if(data.hasOwnProperty('share')) {
+                                  $('#comment_count{{ $blog->id }}').text(data.share.comment_count);
+                                } else {
+                                  $('#comment_count{{ $blog->id }}').text(0);
+                                }
+                            },
+                            error: function(data) {
+
+                            }
+                        });
+                    </script>
               </div>
           </div>
           @php $counter++; @endphp

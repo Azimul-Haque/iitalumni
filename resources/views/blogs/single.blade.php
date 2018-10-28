@@ -26,6 +26,17 @@
 @endsection
 
 @section('content')
+    {{-- facebook comment plugin --}}
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = 'https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v3.2&appId=163879201229487&autoLogAppEvents=1';
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    {{-- facebook comment plugin --}}
+
     <!-- head section -->
     <section class="content-top-margin page-title page-title-small bg-gray xs-display-none">
         <div class="container">
@@ -58,7 +69,7 @@
                     <h2 class="blog-details-headline text-black">{{ $blog->title }}</h2>
                     <!-- end post title  -->
                     <!-- post date and categories  -->
-                    <div class="blog-date no-padding-top">Posted by <a href="{{ route('blogger.profile', $blog->user->unique_key) }}">{{ $blog->user->name }}</a> | {{ date('F d, Y', strtotime($blog->created_at)) }} | <a href="blog-masonry-3columns.html">{{ $blog->category->name }}</a> </div>
+                    <div class="blog-date no-padding-top">Posted by <a href="{{ route('blogger.profile', $blog->user->unique_key) }}"><b>{{ $blog->user->name }}</b></a> | {{ date('F d, Y', strtotime($blog->created_at)) }} | <a href="{{ route('blog.categorywise', $blog->category->name) }}">{{ $blog->category->name }}</a> </div>
                     <!-- end date and categories   -->
                     <!-- post image -->
                     @if($blog->featured_image != null)
@@ -100,7 +111,19 @@
                                 <span id="like_span">{{ $blog->likes }} Like(s)</span>
                             </a>
                             <a href="#" class="blog-share" data-toggle="modal" data-target="#shareModal"><i class="fa fa-share-alt"></i>Share</a>
-                            <a href="#" class="comment"><i class="fa fa-comment-o"></i>3 comment(s)</a>
+                            {{-- <a href="#" class="comment"><i class="fa fa-comment-o"></i><span class="fb-comments-count" data-href="{{ Request::url() }}"></span> comment(s)</a> --}}
+                            <a href="#" class="comment"><i class="fa fa-comment-o"></i>
+                            <span id="comment_count"></span> comment(s)</a>
+                            <script type="text/javascript" src="{{ asset('vendor/hcode/js/jquery.min.js') }}"></script>
+                            <script type="text/javascript">
+                                $.ajax({
+                                    url: "https://graph.facebook.com/v2.2/?fields=share{comment_count}&id={{ Request::url() }}",
+                                    dataType: "jsonp",
+                                    success: function(data) {
+                                        $('#comment_count').text(data.share.comment_count);
+                                    }
+                                });
+                            </script>
                         </div>
                         <!-- end post tags -->
                     </div>
@@ -132,177 +155,26 @@
                         <a href="{{ $blog->user->linkedin }}" class="btn social-icon social-icon-large button"><i class="fa fa-linkedin"></i></a>
                     </div>
                     <!-- end social icon -->
-                    <!-- post comment -->
+                    <!-- blog comment -->
+
                     <div class="blog-comment-main xs-no-padding-top">
                         <h5 class="widget-title">Blog Comments</h5>
-                        <div class="blog-comment">
-                            <a class="comment-avtar"><img src="{{ asset('vendor/hcode/images/avtar5.jpg') }}" alt=""></a>
-                            <div class="comment-text overflow-hidden position-relative">
-                                <p class="blog-date no-padding-top"><a href="#">Nathan Ford</a>, March 09, 2015 <a href="#addcomment" class="comment-reply inner-link">Reply</a></p>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                            </div>
-                            <div class="blog-comment clearfix">
-                                <a class="comment-avtar"><img src="{{ asset('vendor/hcode/images/avtar6.jpg') }}" alt=""></a>
-                                <div class="comment-text overflow-hidden position-relative">
-                                    <p class="blog-date no-padding-top"><a href="#">Paul Scrivens</a>, March 09, 2015 <a href="#addcomment" class="comment-reply inner-link">Reply</a></p>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="blog-comment">
-                            <a class="comment-avtar"><img src="{{ asset('vendor/hcode/images/avtar7.jpg') }}" alt=""></a>
-                            <div class="comment-text overflow-hidden position-relative">
-                                <p class="blog-date no-padding-top"><a href="#">Colin Powell</a>, March 07, 2015 <a href="#addcomment" class="comment-reply inner-link">Reply</a></p>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                        <div class="row">
+                            <div class="col-md-12">
+                                
                             </div>
                         </div>
                     </div>
-                    <!-- end post comment -->
-                    <!-- comment form -->
-                    <div id="addcomment" class="blog-comment-form-main">
-                        <h5 class="widget-title margin-five no-margin-top">Add a comment</h5>
-                        <div class="blog-comment-form">
-                            <form>
-                                <!-- input -->
-                                <input type="text" name="name" placeholder="Name">
-                                <!-- end input -->
-                                <!-- input  -->
-                                <input type="text" name="email" placeholder="Email">
-                                <!-- end input -->
-                                <!-- input  -->
-                                <input type="text" name="website" placeholder="Website">
-                                <!-- end input -->
-                                <!-- textarea  -->
-                                <textarea name="comment" placeholder="Comment"></textarea>
-                                <!-- end textarea  -->
-                                <!-- required  -->
-                                <span class="required">*Please complete all fields correctly</span>
-                                <!-- end required  -->
-                                <!-- button  -->
-                                <input type="submit" name="send message" value="send message" class="highlight-button-dark btn btn-small no-margin-bottom">
-                                <!-- end button  -->
-                            </form>
-                        </div>
-                    </div>
-                    <!-- end comment form -->
+                    <div class="fb-comments" data-href="{{ Request::url() }}" data-width="100%" data-numposts="5"></div>
+                    <!-- end blog comment -->
                 </div>
                 <!-- end content  -->
+
                 <!-- sidebar  -->
                 <div class="col-md-3 col-sm-4 col-md-offset-1 sidebar xs-margin-top-ten">
-                    <!-- widget  -->
-                    <div class="widget">
-                        <form>
-                            <i class="fa fa-search close-search search-button"></i>
-                            <input type="text" placeholder="Search..." class="search-input" name="search">
-                        </form>
-                    </div>
-                    <!-- end widget  -->
-                    <!-- widget  -->
-                    <div class="widget">
-                        <h5 class="widget-title font-alt">Categories</h5>
-                        <div class="thin-separator-line bg-dark-gray no-margin-lr"></div>
-                        <div class="widget-body">
-                            <ul class="category-list">
-                                <li><a href="blog-masonry-3columns.html">Web Design <span>48</span></a></li>
-                                <li><a href="blog-masonry-3columns.html">Featured Blog<span>25</span></a></li>
-                                <li><a href="blog-masonry-3columns.html">Photography Idea<span>32</span></a></li>
-                                <li><a href="blog-masonry-3columns.html">Design Tutorials<span>38</span></a></li>
-                                <li><a href="blog-masonry-3columns.html">News and Events<span>40</span></a></li>
-                                <li><a href="blog-masonry-3columns.html">Arts and Entertainment<span>28</span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- end widget  -->
-                    <!-- widget  -->
-                    <div class="widget">
-                        <h5 class="widget-title font-alt">Popular posts</h5>
-                        <div class="thin-separator-line bg-dark-gray no-margin-lr"></div>
-                        <div class="widget-body">
-                            <ul class="widget-posts">
-                                <li class="clearfix">
-                                    <a href="blog-single-right-sidebar.html"><img src="{{ asset('vendor/hcode/images/portfolio-img58.jpg') }}" alt=""/></a>
-                                    <div class="widget-posts-details"><a href="blog-single-right-sidebar.html">Elements of a Launch Page</a> Simon Schmid - 02 January</div>
-                                </li>
-                                <li class="clearfix">
-                                    <a href="blog-single-right-sidebar.html"><img src="{{ asset('vendor/hcode/images/portfolio-img60.jpg') }}" alt=""/></a>
-                                    <div class="widget-posts-details"><a href="blog-single-right-sidebar.html">The Art of Design Etiquette</a> Paul Scrivens - 06 January</div>
-                                </li>
-                                <li class="clearfix">
-                                    <a href="blog-single-right-sidebar.html"><img src="{{ asset('vendor/hcode/images/portfolio-img61.jpg') }}" alt=""/></a>
-                                    <div class="widget-posts-details"><a href="blog-single-right-sidebar.html">Easier is Better</a> Paul Boag - 08 January</div>
-                                </li>
-                                <li class="clearfix">
-                                    <a href="blog-single-right-sidebar.html"><img src="{{ asset('vendor/hcode/images/portfolio-img62.jpg') }}" alt=""/></a>
-                                    <div class="widget-posts-details"><a href="blog-single-right-sidebar.html">Successful Websites</a> Simon Schmid - 16 January</div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- end widget  -->
-                    <!-- widget  -->
-                    <div class="widget">
-                        <h5 class="widget-title font-alt">Tags Cloud</h5>
-                        <div class="thin-separator-line bg-dark-gray no-margin-lr"></div>
-                        <div class="widget-body tags">
-                            <a href="blog-masonry-3columns.html">Advertisement</a>
-                            <a href="blog-masonry-3columns.html">Blog</a>
-                            <a href="blog-masonry-3columns.html">Fashion</a>
-                            <a href="blog-masonry-3columns.html">Inspiration</a>
-                            <a href="blog-masonry-3columns.html">Smart Quotes</a>
-                            <a href="blog-masonry-3columns.html">Conceptual</a>
-                            <a href="blog-masonry-3columns.html">Artistry</a>
-                            <a href="blog-masonry-3columns.html">Unique</a>
-                        </div>
-                    </div>
-                    <!-- end widget  -->
-                    <!-- widget  -->
-                    <div class="widget">
-                        <h5 class="widget-title font-alt">Recent Comments</h5>
-                        <div class="thin-separator-line bg-dark-gray no-margin-lr"></div>
-                        <div class="widget-body">
-                            <ul class="widget-posts">
-                                <li class="clearfix">
-                                    <div class="widget-posts-details"><a href="blog-single-right-sidebar.html">Elements of A Launch Page</a> Simon Schmid - 02 January</div>
-                                </li>
-                                <li class="clearfix">
-                                    <div class="widget-posts-details"><a href="blog-single-right-sidebar.html">The Art of Design Etiquette</a> Paul Scrivens - 06 January</div>
-                                </li>
-                                <li class="clearfix">
-                                    <div class="widget-posts-details"><a href="blog-single-right-sidebar.html">Easier is Better Than Better</a> Paul Boag - 08 January</div>
-                                </li>
-                                <li class="clearfix">
-                                    <div class="widget-posts-details"><a href="blog-single-right-sidebar.html">Creating Successful Websites</a> Simon Schmid - 16 January</div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- end widget  -->
-                    <!-- widget  -->
-                    <div class="widget">
-                        <h5 class="widget-title font-alt">Text Widget</h5>
-                        <div class="thin-separator-line bg-dark-gray no-margin-lr"></div>
-                        <div class="widget-body">
-                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
-                        </div>
-                    </div>
-                    <!-- end widget  -->
-                    <!-- widget  -->
-                    <div class="widget">
-                        <h5 class="widget-title font-alt">Archive</h5>
-                        <div class="thin-separator-line bg-dark-gray no-margin-lr"></div>
-                        <div class="widget-body">
-                            <ul class="category-list">
-                                <li><a href="blog-masonry-3columns.html">December 2014<span>48</span></a></li>
-                                <li><a href="blog-masonry-3columns.html">January 2015<span>25</span></a></li>
-                                <li><a href="blog-masonry-3columns.html">February 2015<span>32</span></a></li>
-                                <li><a href="blog-masonry-3columns.html">March 2015<span>38</span></a></li>
-                                <li><a href="blog-masonry-3columns.html">April 2015<span>40</span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- end widget  -->
+                    @include('partials._blog_sidebar')
                 </div>
-                <!-- end sidebar  -->
+                <!-- sidebar  -->
             </div>
         </div>
     </section>

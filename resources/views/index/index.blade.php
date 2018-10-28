@@ -87,7 +87,7 @@
              <div class="row">
                 <!-- call to action -->
                 <div class="col-md-7 col-sm-12 text-center center-col">
-                    <p class="title-large text-uppercase letter-spacing-1 black-text font-weight-600 wow fadeIn">Lates Blogs</p>
+                    <p class="title-large text-uppercase letter-spacing-1 black-text font-weight-600 wow fadeIn">Latest Blogs</p>
                 </div>
                 <!-- end call to action -->
             </div>
@@ -117,7 +117,18 @@
                         <div class="separator-line bg-black no-margin-lr"></div>
                         <div>
                             <a href="#!" class="blog-like"><i class="fa fa-heart-o"></i>{{ $blog->likes }} Like(s)</a>
-                            <a href="#!" class="comment"><i class="fa fa-comment-o"></i>3 comment(s)</a>
+                            <a href="#" class="comment"><i class="fa fa-comment-o"></i>
+                            <span id="comment_count{{ $blog->id }}"></span> comment(s)</a>
+                            <script type="text/javascript" src="{{ asset('vendor/hcode/js/jquery.min.js') }}"></script>
+                            <script type="text/javascript">
+                                $.ajax({
+                                    url: "https://graph.facebook.com/v2.2/?fields=share{comment_count}&id={{ url('/blog/'.$blog->slug) }}",
+                                    dataType: "jsonp",
+                                    success: function(data) {
+                                        $('#comment_count{{ $blog->id }}').text(data.share.comment_count);
+                                    }
+                                });
+                            </script>
                         </div>
                     </div>
                 </div>

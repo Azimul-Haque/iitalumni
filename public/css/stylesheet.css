@@ -318,6 +318,12 @@ ul.errorlist > li {
 section {
     padding: 50px 0 !important;
 }
+.fb_iframe_widget_lift {
+    width: 100% !important;
+}
+.transparent {
+    background: rgba(255,255,255,0.75);
+}
 
 
 

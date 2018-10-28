@@ -328,6 +328,7 @@ class ComposerStaticInit5ba844acaeab7533148c65467b83a279
     );
 
     public static $classMap = array (
+        'CreateAdhocmembersTable' => __DIR__ . '/../..' . '/database/migrations/2018_10_28_051530_create_adhocmembers_table.php',
         'CreateBlogsTable' => __DIR__ . '/../..' . '/database/migrations/2018_10_25_113938_create_blogs_table.php',
         'CreateCategoriesTable' => __DIR__ . '/../..' . '/database/migrations/2018_10_25_114844_create_categories_table.php',
         'CreateLikesTable' => __DIR__ . '/../..' . '/database/migrations/2018_10_26_095608_create_likes_table.php',

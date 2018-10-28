@@ -57,13 +57,13 @@
                             <!-- sub menu item  -->
                             <ul id="about_dropdown" class="dropdown-menu panel-collapse collapse" role="menu">
                                 <li>
-                                    <a href="{{ route('index.journey') }}">Journey of DUIITAA</a>
+                                    <a href="{{ route('index.journey') }}"><i class="icon-presentation i-plain"></i> Journey of DUIITAA</a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('index.constitution') }}">Constitution</a>
+                                    <a href="{{ route('index.constitution') }}"><i class=" icon-book-open i-plain"></i> Constitution</a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('index.faq') }}">FAQ</a>
+                                    <a href="{{ route('index.faq') }}"><i class="icon-search i-plain"></i> FAQ</a>
                                 </li>
                             </ul>
                             <!-- end sub menu item  -->
@@ -76,9 +76,8 @@
                             <!-- sub menu single -->
                             <!-- sub menu item  -->
                             <ul id="committee_dropdown" class="dropdown-menu panel-collapse collapse" role="menu">
-
                                 <li>
-                                    <a href="{{ route('index.adhoc') }}">Ad Hoc Committee</a>
+                                    <a href="{{ route('index.adhoc') }}"><i class="icon-strategy i-plain"></i> Ad Hoc Committee</a>
                                 </li>
                             </ul>
                             <!-- end sub menu item  -->
@@ -92,16 +91,13 @@
                             <!-- sub menu item  -->
                             <ul id="others_dropdown" class="dropdown-menu panel-collapse collapse" role="menu">
                                 <li>
-                                    <a href="{{ route('blogs.index') }}">Blogs</a>
+                                    <a href="{{ route('index.news') }}"><i class="icon-newspaper i-plain"></i> News</a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('index.news') }}">News</a>
+                                    <a href="{{ route('index.events') }}"><i class="icon-megaphone i-plain"></i> Events</a>
                                 </li>
                                 <li>
-                                    <a href="{{ route('index.events') }}">Events</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('index.gallery') }}">Photo Gallery</a>
+                                    <a href="{{ route('index.gallery') }}"><i class="icon-pictures i-plain"></i> Photo Gallery</a>
                                 </li>
                             </ul>
                             <!-- end sub menu item  -->
@@ -109,13 +105,16 @@
                         </li>
 
                         <li>
-                            <a href="{{ route('index.members') }}" class="">Members</a>
+                            <a href="{{ route('index.members') }}">Members</a>
                         </li>
                         <li>
-                            <a href="{{ route('index.contact') }}" class="">Contact</a>
+                            <a href="{{ route('blogs.index') }}">Blog</a>
                         </li>
                         <li>
-                            <a href="{{ route('index.application') }}" class="">Membership Application</a>
+                            <a href="{{ route('index.contact') }}">Contact</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('index.application') }}">Membership</a>
                         </li>
                         @if(Auth::check())
                         <li class="dropdown panel simple-dropdown">
@@ -130,10 +129,10 @@
                             <!-- sub menu item  -->
                             <ul id="nav_auth_user" class="dropdown-menu panel-collapse collapse" role="menu">
                                 <li>
-                                    <a href="{{ route('index.profile', Auth::user()->unique_key) }}">Profile</a>
+                                    <a href="{{ route('index.profile', Auth::user()->unique_key) }}"><i class="icon-profile-male i-plain"></i> Profile</a>
                                 </li>
                                 <li>
-                                    <a href="{{ url(config('adminlte.logout_url', 'auth/logout')) }}">Logout</a>
+                                    <a href="{{ url(config('adminlte.logout_url', 'auth/logout')) }}"><i class="icon-key i-plain"></i> Logout</a>
                                 </li>
                             </ul>
                         </li>
