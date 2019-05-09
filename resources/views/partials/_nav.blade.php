@@ -5,10 +5,10 @@
             <!-- logo -->
             <div class="col-md-2 pull-left">
                 <a class="logo-light" href="{{ route('index.index') }}">
-                    <img alt="" src="{{ asset('vendor/hcode/images/logo-light.png') }}" class="logo" />
+                    <img alt="" src="{{ asset('images/logo.png') }}" class="logo" />
                 </a>
                 <a class="logo-dark" href="{{ route('index.index') }}">
-                    <img alt="" src="{{ asset('vendor/hcode/images/logo-light.png') }}" class="logo" />
+                    <img alt="" src="{{ asset('images/logo.png') }}" class="logo" />
                 </a>
             </div>
             <!-- end logo -->

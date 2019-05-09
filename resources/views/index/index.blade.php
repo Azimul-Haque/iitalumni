@@ -21,10 +21,10 @@
                     <a class="highlight-button-black-border btn btn-small no-margin-bottom inner-link sm-margin-bottom-ten" href="#">Read More</a>
                 </div>
                 <div class="col-md-3 col-sm-6 text-center col-md-offset-1 xs-margin-bottom-ten">
-                    <img src="{{ asset('vendor/hcode/images/spa-img3.jpg') }}" class="xs-img-full" alt="" />
+                    <img src="{{ asset('images/spa-img3.jpg') }}" class="xs-img-full" alt="" />
                 </div>
                 <div class="col-md-3 col-sm-6 text-center ">
-                    <img src="{{ asset('vendor/hcode/images/spa-img4.jpg') }}" class="xs-img-full" alt="" />
+                    <img src="{{ asset('images/spa-img4.jpg') }}" class="xs-img-full" alt="" />
                 </div>
             </div>
         </div>
@@ -74,16 +74,16 @@
             <div class="row">
                 <!-- call to action -->
                 <div class="col-md-7 col-sm-12 text-center center-col">
-                    <p class="title-large text-uppercase letter-spacing-1 black-text font-weight-600 wow fadeIn">Creative thinkers, clever developer and marketing superheroes apply here</p>
-                    <a href="contact-us.html" class="highlight-button-black-border btn margin-six wow fadeInUp">Apply Now!</a>
+                    <p class="title-large text-uppercase letter-spacing-1 black-text font-weight-600 wow fadeIn">Want to be a memeber of IITAluni?</p>
+                    <a href="{{ route('index.application') }}" class="highlight-button-black-border btn margin-six wow fadeInUp">Apply Now!</a>
                 </div>
                 <!-- end call to action -->
             </div>
         </div>
     </section>
     <!-- blog content section -->
-    <section class="wow fadeIn blog-full-width-section">
-        <div class="container-fuild">
+    <section class="">
+        <div class="container">
              <div class="row">
                 <!-- call to action -->
                 <div class="col-md-7 col-sm-12 text-center center-col">
@@ -91,10 +91,13 @@
                 </div>
                 <!-- end call to action -->
             </div>
-            <div class="row blog-full-width no-margin xs-no-padding">
+            <div class="row">
                 <!-- post item -->
+                @php
+                    $eventwaitduration = 300;
+                @endphp
                 @foreach($blogs as $blog)
-                <div class="col-md-3 col-sm-6 col-xs-6 blog-listing wow fadeInUp" data-wow-duration="300ms">
+                <div class="col-md-3 col-sm-6 col-xs-6 blog-listing wow fadeInRight" data-wow-duration="{{ $eventwaitduration }}ms">
                     <div class="blog-image">
                         <a href="{{ route('blog.single', $blog->slug) }}">
                             @if($blog->featured_image != null)
@@ -107,7 +110,7 @@
                     <div class="blog-details">
                         <div class="blog-date"><a href="{{ route('blog.single', $blog->slug) }}">{{ $blog->user->name }}</a> | {{ date('F d, Y', strtotime($blog->created_at)) }}</div>
                         <div class="blog-title"><a href="{{ route('blog.single', $blog->slug) }}">{{ $blog->title }}</a></div>
-                        <div class="blog-short-description" style="text-align: justify; text-justify: inter-word; width: 100%">
+                        <div class="blog-short-description" style="text-align: justify; text-justify: inter-word; width: 100%; min-height: 160px;">
                             @if(strlen(strip_tags($blog->body))>300)
                             {{ mb_substr(strip_tags($blog->body), 0, stripos($blog->body, " ", stripos(strip_tags($blog->body), " ")+200))." [...] " }}
                             @else
@@ -132,6 +135,9 @@
                         </div>
                     </div>
                 </div>
+                @php
+                    $eventwaitduration = $eventwaitduration + 300;
+                @endphp
                 @endforeach
                 <!-- end post item -->
             </div>

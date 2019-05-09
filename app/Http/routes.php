@@ -26,6 +26,7 @@ Route::get('/events', ['as'=>'index.events','uses'=>'IndexController@getEvents']
 Route::get('/gallery', ['as'=>'index.gallery','uses'=>'IndexController@getGallery']);
 Route::get('/members', ['as'=>'index.members','uses'=>'IndexController@getMembers']);
 Route::get('/contact', ['as'=>'index.contact','uses'=>'IndexController@getContact']);
+Route::post('/contact/form/message/store', ['as'=>'index.storeformmessage','uses'=>'IndexController@storeFormMessage']);
 Route::get('/application', ['as'=>'index.application','uses'=>'IndexController@getApplication']);
 Route::get('/member/login', ['as'=>'index.login','uses'=>'IndexController@getLogin']);
 Route::get('/member/profile/{unique_key}', ['as'=>'index.profile','uses'=>'IndexController@getProfile']);

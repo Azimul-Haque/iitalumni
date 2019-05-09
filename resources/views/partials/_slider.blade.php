@@ -2,7 +2,7 @@
 <section id="slider" class="no-padding content-top-margin">
     <div id="owl-demo" class="owl-carousel owl-theme owl-half-slider owl-small-slider">
         <!-- slider item #1 -->
-        <div class="item owl-bg-img" style="background-image:url('{{ asset('vendor/hcode/images/slider-img25.jpg') }}');">
+        <div class="item owl-bg-img" style="background-image:url('{{ asset('images/slider/slider-img15.jpg') }}');">
             <div class="opacity-full bg-slider"></div>
             <div class="container position-relative">
                 <div class="slider-typography text-center">
@@ -17,7 +17,7 @@
         </div>
         <!-- end slider item #1 -->
         <!-- slider item #2 -->
-        <div class="item owl-bg-img" style="background-image:url('{{ asset('vendor/hcode/images/slider-img24.jpg') }}');">
+        <div class="item owl-bg-img" style="background-image:url('{{ asset('images/slider/slider-img16.jpg') }}');">
             <div class="opacity-full bg-slider"></div>
             <div class="container position-relative">
                 <div class="slider-typography text-center">
@@ -32,7 +32,7 @@
         </div>
         <!-- end slider item #2 -->
         <!-- slider item #3 -->
-        <div class="item owl-bg-img" style="background-image:url('{{ asset('vendor/hcode/images/slider-img26.jpg') }}');">
+        <div class="item owl-bg-img" style="background-image:url('{{ asset('images/slider/slider-img17.jpg') }}');">
             <div class="opacity-full bg-slider"></div>
             <div class="container position-relative">
                 <div class="slider-typography text-center">

@@ -76,7 +76,7 @@
                     <div class="col-md-4 col-sm-4 text-center">
                         <i class="icon-envelope small-icon black-text"></i>
                         <h6 class="margin-two no-margin-bottom">
-                            <a href="mailto:no-reply@domain.com" class="black-text">info@domain.com</a>
+                            <a href="mailto:no-reply@domain.com" class="black-text">info@iitdualumni.com</a>
                         </h6>
                     </div>
                     <!-- end email -->
@@ -199,8 +199,8 @@
                     <!-- end copyright -->
                     <!-- logo -->
                     <div class="col-md-6 col-sm-6 col-xs-12 footer-logo text-right xs-text-center">
-                        <a href="index-2.html">
-                            <img src="{{ asset('vendor/hcode/images/logo-light-gray.png') }}" alt="" />
+                        <a href="{{ route('index.index') }}">
+                            <img src="{{ asset('images/logo-light.png') }}" alt="" />
                         </a>
                     </div>
                     <!-- end logo -->
